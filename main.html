@@ -7,26 +7,69 @@
     <script src="pixi.min.js"></script>
 <body>
     <script type="text/javascript">
-        let type="WebGL"
+        /*let type="WebGL";
+
+
         let app = new PIXI.Application({ //makes a canvas
-            width:256, 
+            width:256,
             height:256,
             antialias:true,
             transparent:false,
             resolution:1
         });
         app.stage;
-        app.renderer.backgroundColor=0x061639; //change color
-        app.renderer.autoResize = true;
-        app.renderer.view.style.position = "absolute";
-        app.renderer.view.style.display = "block";
-        app.renderer.autoResize = true;
-        app.renderer.resize(window.innerWidth, window.innerHeight);
+        //app.renderer.backgroundColor=0x061639; //change color
+        //app.renderer.autoResize = true;
+        //app.renderer.view.style.position = "absolute";
+        //app.renderer.view.style.display = "block";
+        //app.renderer.autoResize = true;
+        //app.renderer.resize(window.innerWidth, window.innerHeight);
         if(!PIXI.utils.isWebGLSupported()) {
             type = "canvas"
         }
-        PIXI.utils.sayHello(type);
+        //PIXI.utils.sayHello(type);
         document.body.appendChild(app.view);
+        //start sprites
+        let texture = PIXI.utils.TextureCache["image/ghost.png"];
+        //let sprite = new PIXI.Sprite(texture);
+        PIXI.loader
+            .add("image/ghost.png")
+            .load(setup);
+
+            function setup() {
+                let ghost = new PIXI.Sprite(PIXI.loader.resources["image/ghost.png"].texture);
+            }
+        app.stage.addChild(ghost);*/
+
+        //Create a Pixi Application
+let app = new PIXI.Application({
+    width: 400,
+    height: 400,
+    antialias: true,
+    transparent: false,
+    resolution: 1
+  }
+);
+
+//Add the canvas that Pixi automatically created for you to the HTML document
+document.body.appendChild(app.view);
+
+//load an image and run the `setup` function when it's done
+PIXI.loader
+  .add("image/ghost.png", {crossOrigin: 'anonymous'})
+  .load(setup);
+
+//This `setup` function will run when the image has loaded
+function setup() {
+
+  //Create the cat sprite
+  console.log(PIXI.loader.resources);
+  let cat = new PIXI.Sprite(PIXI.loader.resources["image/ghost.png"].texture);
+  cat.scale.set(0.1,0.1);
+
+  //Add the cat to the stage
+  app.stage.addChild(cat);
+}
     </script>
 </body>
 </html>
